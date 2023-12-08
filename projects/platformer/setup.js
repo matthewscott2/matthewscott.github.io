@@ -97,4 +97,10 @@ var collectableList = {
   kennedi: { image: "images/collectables/kennedi-head.png" },
   max: { image: "images/collectables/max-head.png" },
   steve: { image: "images/collectables/steve-head.png" },
+  red: { image: "images/collectables/red-removebg-preview.png" },
+  blue: { image: "images/collectables/blue-removebg-preview.png" },
+  green: { image: "images/collectables/green-removebg-preview.png" },
+  purple: { image: "images/collectables/purple-removebg-preview.png" },
+  orange: { image: "images/collectables/orange-removebg-preview.png" },
+  yellow: { image: "images/collectables/yellow-removebg-preview.png" },
 };

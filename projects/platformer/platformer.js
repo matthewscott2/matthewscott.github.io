@@ -1,3 +1,6 @@
+varX = 0;
+varY = 0;
+
 $(function () {
   // initialize canvas and context when able to
   canvas = document.getElementById("canvas");
@@ -44,7 +47,25 @@ $(function () {
     // You must decide the x position, y position, width, and height of the platforms
     // example usage: createPlatform(x,y,width,height)
 
+    createPlatform(varX+100,varY+625,200,10);
+    createPlatform(varX+400,varY+625,1000,10);
+    createPlatform(100,525,600,10);
+    createPlatform(800,525,600,10);
+    createPlatform(100,425,800,10);
+    createPlatform(1000,425,400,10);
+    createPlatform(100,325,200,10);
+    createPlatform(400,325,1000,10);
+    createPlatform(100,225,1200,10);
+    createPlatform(100,125,600,10);
+    createPlatform(800,125,600,10);
 
+    //maze
+    createPlatform(0,0,1400,10);
+    createPlatform(100,0,10,625);
+    createPlatform(0,0,10,1400);
+    createPlatform(1390,0,10,1400);
+    varX++;
+    varY++;
 
     
     // TODO 2
@@ -53,7 +74,13 @@ $(function () {
     // Your collectable choices are 'database' 'diamond' 'grace' 'kennedi' 'max' and 'steve'; more can be added if you wish
     // example usage: createCollectable(type, x, y, gravity, bounce)
 
-
+    createCollectable("red",400,550,0.5,1)
+    createCollectable("orange",1100,450,0.5,1)
+    createCollectable("yellow",400,350,0.5,1)
+    createCollectable("green",150,250,0.5,1)
+    createCollectable("blue",725,150,0.5,1)
+    createCollectable("purple",580,50,0.5,1)
+    
 
 
     // TODO 3
@@ -62,7 +89,13 @@ $(function () {
     // Your wall choices are: 'top' 'left' 'right' and 'bottom'
     // example usage: createCannon(side, position, delay, width, height)
 
-
+    createCannon("left",-35,2000);
+    createCannon("right",240,1250);
+    createCannon("right",440,1250);
+    createCannon("left",525,1250);
+    createCannon("top",750,1250);
+    createCannon("bottom",750,1250);
+    
 
 
     /////////////////////////////////////////////////

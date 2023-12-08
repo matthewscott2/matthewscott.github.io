@@ -3,7 +3,10 @@ body {
 }
 
 canvas {
-  background-color: lightgray;
+  background-image: url("https://i.ytimg.com/vi/dZefBxtOZk8/sddefault.jpg");
+  background-repeat: no-repeat;
+  background-position: 0%;
+  background-size:cover;
 }
 
 img {
