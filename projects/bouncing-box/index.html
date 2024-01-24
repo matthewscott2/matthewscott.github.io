@@ -5,10 +5,19 @@
 	<title>Bouncing Box</title>
 	<script src="jquery.min.js"></script>
 	<style>
+		.board{
+			height: 100vh;
+			background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI5LiwzWZUiGa2Fuyzc6iWytuwsoh4ELBW2w:https://media.makeameme.org/created/click-here-they.jpg&usqp=CAU");
+			-webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+			background-size: cover;
+		}
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: teal;
+			background-color: rgb(255, 0, 0);
 			font-size: 300%;
 			text-align: center;
 			user-select: none;
@@ -16,9 +25,6 @@
 			position: absolute;
 			top: 100px;
 			left: 0px;  /* <--- Change me! */
-		}
-		.board{
-			height: 100vh;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -43,18 +49,39 @@
 
 			// Every 50 milliseconds, call the update Function (see below)
 			setInterval(update, 50);
+			function endGame() {
+					clearInterval(interval);
+			}
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
-
-			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
-				box.css("left", newPositionX);
-			}
+			/*board.on('click', handleBoardClick);
+			attempted death function*/
+			
+			// moves the Box to a new position on the screen along the X and Y-Axis
+			function moveBoxTo(newPositionX, newPositionY) {
+      			box.css('left', newPositionX);
+      			box.css('top', newPositionY);
+ 	 		}
 
 			// changes the text displayed on the Box
 			function changeBoxText(newText) {
 				box.text(newText);
+			}
+			
+
+			var randomNumberBetween0and255R;
+			var randomNumberBetween0and255G;
+			var randomNumberBetween0and255B;
+			var colorStr;
+			
+			// gets random color
+			function getRandomColor() {
+				randomNumberBetween0and255R = Math.random() * 255;
+				randomNumberBetween0and255G = Math.random() * 255;
+				randomNumberBetween0and255B = Math.random() * 255;
+				colorStr = "rgb(" + randomNumberBetween0and255R + ", " + randomNumberBetween0and255G + ", " + randomNumberBetween0and255B + ")";
+				box.css('background-color', colorStr);
 			}
 
 			//////////////////////////////////////////////////////////////////
@@ -62,7 +89,13 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
-			
+			var positionX = 0;
+			var points = 0;
+			var speed = 10;
+			var positionY = 0;
+			var speedY = 10;
+			var boardHeight = jQuery(window).height();
+			var randNum;
 
 			
 			/* 
@@ -71,8 +104,23 @@
 			turn it around! 
 			*/
 			function update() {
-				
-
+				randNum = Math.random() * boardHeight;
+				positionX = positionX + speed;
+				positionY = positionY + speedY;
+				moveBoxTo(positionX, positionY);
+				if (positionX > boardWidth){
+					speed = -speed;
+				}
+				if (positionX < 0){
+					speed = -speed;
+				}
+				if (positionY > boardHeight){
+					speedY = -speedY;
+				}
+				if (positionY < 0){
+					speedY = -speedY;
+				}
+				box.css('background-color', colorStr);
 			};
 
 			/* 
@@ -81,10 +129,25 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
-
-
+				positionX = randNum;
+				positionY = randNum;
+				points = points + 1;
+				changeBoxText(points);
+				if (points % 3 === 0 && speed > 0){
+					speed += 3;
+				}
+				else if (points % 3 === 0 && speed < 0){
+					speed -=3
+				}
+				getRandomColor();
 			};
+
+			/*function handleBoardClick() {
+				if (box.on !== 'click'){
+					clearInterval(interval);
+				}
+			}
+			attempted death code*/
 		})();
 	</script>
 </body>
