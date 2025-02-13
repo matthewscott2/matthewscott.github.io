@@ -1,0 +1,57 @@
+
+body {
+  background-color: rgb(52, 0, 63);
+
+}
+
+#board {
+  width: 440px;
+  height: 440px;
+  border: 1px solid rgb(184, 181, 0);
+  background-color: black;
+  background-image: url("celestial-snake.png");
+}
+
+#score, #highScore {
+  color: rgb(255, 238, 0);
+}
+
+.snake, .apple {
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  user-select: none;
+}
+
+.snake {
+  background-color: green;
+  z-index: 2;
+  width: 20px;
+  height:20px;
+  background-image: url(snake-body.png);
+  background-size: cover;
+  position: absolute;
+}
+
+#snake-head {
+  z-index: 2;
+  width: 20px;
+  height:20px;
+  background-image: url(snake-head.png);
+  background-size: cover;
+  position: absolute;
+}
+
+.apple {
+  width: 20px;
+  height:20px;
+  background-image: url(earth-apple.png);
+  background-size: cover;
+  position: absolute;
+}
+
+
+#title {
+  color: rgb(255, 238, 0)
+}
