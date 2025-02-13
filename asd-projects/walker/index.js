@@ -25,25 +25,25 @@ function runProgram(){
     W: 87,
     S: 83,
   }
-  const BOARD_WIDTH = $("#board").width()
-  const BOARD_HEIGHT = $("#board").height()
+  const BOARD_WIDTH = $("#board").width();
+  const BOARD_HEIGHT = $("#board").height();
   const WALKER_SIZE = $("#walker").width();
 
   // Game Item Objects
-  var walker = {
-    xPos: 0,
-    yPos: 0,
-    xSpeed: 0,
-    ySpeed: 0,
-    //holds valus for walker
-  }
+  var walker = Walker("#walker", 0, 0, 0, 0, WALKER_SIZE, WALKER_SIZE)
+  var walker2 = Walker("#walker2", BOARD_WIDTH - WALKER_SIZE, BOARD_HEIGHT - WALKER_SIZE, 0, 0, WALKER_SIZE, WALKER_SIZE)
 
-  var walker2 = {
-    xPos: BOARD_WIDTH - WALKER_SIZE,
-    yPos: BOARD_HEIGHT - WALKER_SIZE,
-    xSpeed: 0,
-    ySpeed: 0,
-    //holds valus for walker 2
+  function Walker(id, xPos, yPos, xSpeed, ySpeed, width, height){
+    let obj = {
+      id: id,
+      xPos: xPos,
+      yPos: yPos,
+      xSpeed: xSpeed,
+      ySpeed: ySpeed,
+      width: width,
+      height: height,
+    }
+    return obj;
   }
 
   // one-time setup
