@@ -33,18 +33,7 @@ function runProgram(){
   var walker = Walker("#walker", 0, 0, 0, 0, WALKER_SIZE, WALKER_SIZE)
   var walker2 = Walker("#walker2", BOARD_WIDTH - WALKER_SIZE, BOARD_HEIGHT - WALKER_SIZE, 0, 0, WALKER_SIZE, WALKER_SIZE)
 
-  function Walker(id, xPos, yPos, xSpeed, ySpeed, width, height){
-    let obj = {
-      id: id,
-      xPos: xPos,
-      yPos: yPos,
-      xSpeed: xSpeed,
-      ySpeed: ySpeed,
-      width: width,
-      height: height,
-    }
-    return obj;
-  }
+ 
 
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -60,9 +49,12 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    repositionGameItem();
-    redrawGameItem();
-    wallCollision();
+    repositionGameItem(walker);
+    repositionGameItem(walker2);
+    redrawGameItem(walker);
+    redrawGameItem(walker2);
+    wallCollision(walker);
+    wallCollision(walker2);
     doCollide(walker, walker2);
   }
   
@@ -117,48 +109,33 @@ function runProgram(){
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
-  function repositionGameItem(){
-    walker.xPos += walker.xSpeed
-    walker.yPos += walker.ySpeed
-    //change sthe position of the walkers
-    walker2.xPos += walker2.xSpeed
-    walker2.yPos += walker2.ySpeed
+  function repositionGameItem(obj){
+    obj.xPos += obj.xSpeed
+    obj.yPos += obj.ySpeed
+    //changes the position of the walkers
   }
   
-  function redrawGameItem(){
-    $("#walker").css("left", walker.xPos)
-    $("#walker").css("top", walker.yPos)
+  function redrawGameItem(obj){
+    $(obj.id).css("left", obj.xPos)
+    $(obj.id).css("top", obj.yPos)
     //actually redraws the walkers to make them move
-    $("#walker2").css("left", walker2.xPos)
-    $("#walker2").css("top", walker2.yPos)
   }
 
-  function wallCollision(){
-    if (walker.xPos > BOARD_WIDTH - WALKER_SIZE){
-      walker.xPos -= walker.xSpeed;
+  function wallCollision(obj){
+    if (obj.xPos > BOARD_WIDTH - WALKER_SIZE){
+      obj.xPos -= obj.xSpeed;
     }
-    if (walker.xPos < 0){
-      walker.xPos -= walker.xSpeed;
+    if (obj.xPos < 0){
+      obj.xPos -= obj.xSpeed;
     }
-    if (walker.yPos > BOARD_HEIGHT - WALKER_SIZE){
-      walker.yPos -= walker.ySpeed;
+    if (obj.yPos > BOARD_HEIGHT - WALKER_SIZE){
+      obj.yPos -= obj.ySpeed;
     }
-    if (walker.yPos < 0){
-      walker.yPos -= walker.ySpeed;
+    if (obj.yPos < 0){
+      obj.yPos -= obj.ySpeed;
     }
     //prevents the walkers from hitting the border
-    if (walker2.xPos > BOARD_WIDTH - WALKER_SIZE){
-      walker2.xPos -= walker2.xSpeed;
-    }
-    if (walker2.xPos < 0){
-      walker2.xPos -= walker2.xSpeed;
-    }
-    if (walker2.yPos > BOARD_HEIGHT - WALKER_SIZE){
-      walker2.yPos -= walker2.ySpeed;
-    }
-    if (walker2.yPos < 0){
-      walker2.yPos -= walker2.ySpeed;
-    }
+
   }
 
   function doCollide(walker1, walker2) {
@@ -191,6 +168,19 @@ function runProgram(){
     else {
       console.log(false)
     }
+  }
+
+  function Walker(id, xPos, yPos, xSpeed, ySpeed, width, height){
+    let obj = {
+      id: id,
+      xPos: xPos,
+      yPos: yPos,
+      xSpeed: xSpeed,
+      ySpeed: ySpeed,
+      width: width,
+      height: height,
+    }
+    return obj;
   }
 
   function endGame() {
