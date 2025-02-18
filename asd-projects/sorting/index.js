@@ -33,17 +33,34 @@ async function quickSort(array, left, right){ //creates a function that accepts 
         return //exits the funcion
     }
 
-    var index = await partition(array, left, right)
-    if (left < index - 1){
-        await quickSort(array, left, index - 1)
+    var index = await partition(array, left, right) //divides the values into left and right
+    if (left < index - 1){ //if left is less than the greatest element of the array, it runs the code block
+        await quickSort(array, left, index - 1) //re-calls the quickSort function but with index - 1 as the right parameter
     }
-    if (right > index){
-        await quickSort(array, index, right)
+    if (right > index){ //if right is greater than the partititon, it runs the code block
+        await quickSort(array, index, right) //re-calls the quickSort function but with index as the left parameter
     }
 }
 
 // TODOs 4 & 5: Implement partition
+async function partition (array, left, right){
+    let pivot = array[Math.floor((right + left) / 2)].value; //creates a variable called pivot, which selects the pivot amount by finding the middle index and using its value
+    while (right > left){ //runs the contained code while right is greater than left
+        while(array[left].value < pivot){ 
+            left = left + 1 //if the left value is still on the left, it increases the value
+        }
+        while(array[right].value > pivot){
+            right = right - 1 //if the right value is still on the right, it increases the value of right
+        }
+        if (left < right){ //runs the code if left is still less than right
+            swap(array, left, right) //swaps the values of left and right
+            updateCounter(quickCounter) //upodates the right-sides move counter 
+            await sleep(); //pauses so we can see the move
+        }
+    }
 
+    return left + 1 //returns the value of left plus one
+}
 
 // TODO 1: Implement swap
 function swap (array, i, j){
