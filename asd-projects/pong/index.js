@@ -10,13 +10,42 @@ function runProgram(){
   // Constant Variables
   const FRAME_RATE = 60;
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
+  const BOARD_WIDTH = $("#board").width();
+  const BOARD_HEIGHT = $("#board").height();
   
   // Game Item Objects
+  const KEY = {
+    "W": 87,
+    "A": 65,
+    "S": 83, 
+    "D": 68,
+    "UP": 38,
+    "LEFT": 37,
+    "DOWN": 40,
+    "RIGHT": 39,
+  }
 
+
+  function GameItem(id, xSpeed, ySpeed){
+    var objInstance = {
+      id: id,
+      xPos: parseFloat($(id).css("left")),
+      yPos: parseFloat($(id).css("top")),
+      xSpeed: xSpeed,
+      ySpeed: ySpeed,
+      width: $(id).width(),
+      height: $(id).width(),
+    }
+    return objInstance
+  }
+
+  var paddleLeft = GameItem("#paddleLeft", 0, 0);
+  var paddleRight = GameItem("#paddleRight", 0, 0)
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
-  $(document).on('eventType', handleEvent);                           // change 'eventType' to the type of event you want to handle
+  $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
+  $(document).on('keyup', handleKeyUp);  
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -27,22 +56,73 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
-
+    redrawGameItem(paddleLeft);
+    redrawGameItem(paddleRight);
+    updateGameItem(paddleLeft);
+    updateGameItem(paddleRight);
   }
   
   /* 
   Called in response to events.
   */
-  function handleEvent(event) {
+  function handleKeyDown(event) {
+    if(event.which === KEY.W){
+      paddleLeft.ySpeed = -5
+    }
+    if(event.which === KEY.UP){
+      paddleRight.ySpeed = -5
+    }
+    /*if(event.which === KEY.A){
+      paddleLeft.xSpeed = -5
+    }
+    if(event.which === KEY.LEFT){
+      paddleRight.xSpeed = -5
+    }*/
+    if(event.which === KEY.S){
+      paddleLeft.ySpeed = 5
+    }
+    if(event.which === KEY.DOWN){
+      paddleRight.ySpeed = 5
+    }
+    /*if(event.which === KEY.D){
+      paddleLeft.xSpeed = 5
+    }
+    if(event.which === KEY.RIGHT){
+      paddleRight.xSpeed = 5
+    }*/
+  }
 
+  function handleKeyUp(event){
+    if(event.which === KEY.W){
+      paddleLeft.ySpeed = 0
+    }
+    if(event.which === KEY.UP){
+      paddleRight.ySpeed = 0
+    }
+    if(event.which === KEY.S){
+      paddleLeft.ySpeed = 0
+    }
+    if(event.which === KEY.DOWN){
+      paddleRight.ySpeed = 0
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  // Movement Helpers
   
+  function redrawGameItem(obj){
+    $(obj.id).css("left", obj.xPos);
+    $(obj.id).css("top", obj.yPos);
+  }
+
+  function updateGameItem(obj){
+    obj.xPos += obj.xSpeed;
+    obj.yPos += obj.ySpeed;
+  }
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
