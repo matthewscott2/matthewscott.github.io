@@ -4,31 +4,28 @@ body {
 }
 
 #board {
-  width: 440px;
+  width: 880px;
   height: 440px;
   border: 1px solid white;
   background-color: black;
   position: relative;
 }
 
-
-#paddleLeft {
+.paddle {
   background-color: rgb(209, 209, 209);
   width: 10px;
   height: 50px;
   border-radius: 15px;
   position: absolute;
+}
+
+#paddleLeft {
   left: 10px;
   top: 10px;
 }
 
 #paddleRight {
-  background-color: rgb(209, 209, 209);
-  width: 10px;
-  height: 50px;
-  border-radius: 15px;
-  position: absolute;
-  left: 420px;
+  left: 860px;
   top: 10px;
 }
 
@@ -38,7 +35,7 @@ body {
   height: 75px;
   border-radius: 37.5px;
   position: absolute;
-  left: 182.5px;
+  left: 365px;
   top: 182.5px;
 }
 
@@ -47,7 +44,7 @@ body {
   width: 50px;
   height: 25px;
   position: absolute;
-  left: 380px;
+  left: 820px;
   top: -10px;
 }
 

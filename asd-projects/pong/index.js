@@ -12,6 +12,7 @@ function runProgram(){
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   const BOARD_WIDTH = $("#board").width();
   const BOARD_HEIGHT = $("#board").height();
+  const randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
   
   // Game Item Objects
   const KEY = {
@@ -41,6 +42,7 @@ function runProgram(){
 
   var paddleLeft = GameItem("#paddleLeft", 0, 0);
   var paddleRight = GameItem("#paddleRight", 0, 0)
+  var ball = GameItem("#ball", randomNum, 0)
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -58,8 +60,11 @@ function runProgram(){
   function newFrame() {
     redrawGameItem(paddleLeft);
     redrawGameItem(paddleRight);
+    redrawGameItem(ball);
     updateGameItem(paddleLeft);
     updateGameItem(paddleRight);
+    updateGameItem(ball);
+    outOfBounds(ball);
   }
   
   /* 
@@ -121,6 +126,24 @@ function runProgram(){
   function updateGameItem(obj){
     obj.xPos += obj.xSpeed;
     obj.yPos += obj.ySpeed;
+  }
+
+  //check boundaries of paddles
+  //handle what happens when the ball hits the walls
+  //handle what happens when the ball hits the paddles
+  //handle what happens when someone wins
+  //handle the points
+  //hand;e resetting the game
+
+  function outOfBounds(obj){
+    if (obj.xPos > BOARD_WIDTH - obj.width){
+      obj.xPos = 182.5
+      //increase score1
+    }
+    if (obj.xPos < 0){
+      obj.xPos = 182.5
+      //increase score2
+    }
   }
 
   function endGame() {
