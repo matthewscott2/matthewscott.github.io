@@ -35,7 +35,7 @@ function runProgram(){
       xSpeed: xSpeed,
       ySpeed: ySpeed,
       width: $(id).width(),
-      height: $(id).width(),
+      height: $(id).height(),
     }
     return objInstance
   }
@@ -65,6 +65,7 @@ function runProgram(){
     updateGameItem(paddleRight);
     updateGameItem(ball);
     outOfBounds(ball);
+    detectCollision();
   }
   
   /* 
@@ -145,12 +146,21 @@ function runProgram(){
       //increase score2
     }
     if (obj.yPos > BOARD_HEIGHT - obj.height){
-      obj.yPos = 182.5
+      obj.yPos = BOARD_HEIGHT/2 - obj.height/2
       //increase score1
     }
     if (obj.yPos < 0){
-      obj.yPos = 182.5
+      obj.yPos = BOARD_HEIGHT/2 - obj.height/2
       //increase score2
+    }
+  }
+
+  function detectCollision(){
+    if (ball.xPos < paddleLeft.xPos + paddleLeft.width){
+      console.log("test one")
+    }
+    if (paddleLeft.yPos + paddleLeft.height/2 < ball.yPos && paddleLeft.yPos + paddleLeft.height/2 > ball.yPos + ball.height){
+      console.log("test two")
     }
   }
 

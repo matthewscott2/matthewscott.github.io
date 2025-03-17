@@ -35,8 +35,8 @@ body {
   height: 75px;
   border-radius: 37.5px;
   position: absolute;
-  left: 365px;
-  top: 182.5px;
+  left: calc(50% - 37.5px);
+  top: calc(50% - 37.5px);
 }
 
 #score1 {
