@@ -133,15 +133,23 @@ function runProgram(){
   //handle what happens when the ball hits the paddles
   //handle what happens when someone wins
   //handle the points
-  //hand;e resetting the game
+  //handle resetting the game
 
   function outOfBounds(obj){
     if (obj.xPos > BOARD_WIDTH - obj.width){
-      obj.xPos = 182.5
+      obj.xPos = BOARD_WIDTH/2 - obj.width/2
       //increase score1
     }
     if (obj.xPos < 0){
-      obj.xPos = 182.5
+      obj.xPos = BOARD_WIDTH/2 - obj.width/2
+      //increase score2
+    }
+    if (obj.yPos > BOARD_HEIGHT - obj.height){
+      obj.yPos = 182.5
+      //increase score1
+    }
+    if (obj.yPos < 0){
+      obj.yPos = 182.5
       //increase score2
     }
   }
