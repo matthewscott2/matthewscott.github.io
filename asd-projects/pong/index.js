@@ -42,7 +42,7 @@ function runProgram(){
 
   var paddleLeft = GameItem("#paddleLeft", 0, 0);
   var paddleRight = GameItem("#paddleRight", 0, 0)
-  var ball = GameItem("#ball", randomNum, 0)
+  var ball = GameItem("#ball", randomNum, randomNum)
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -66,6 +66,7 @@ function runProgram(){
     updateGameItem(ball);
     outOfBounds(ball);
     detectCollision();
+    wallCollision();
   }
   
   /* 
@@ -73,10 +74,10 @@ function runProgram(){
   */
   function handleKeyDown(event) {
     if(event.which === KEY.W){
-      paddleLeft.ySpeed = -5
+      paddleLeft.ySpeed = -7.5
     }
     if(event.which === KEY.UP){
-      paddleRight.ySpeed = -5
+      paddleRight.ySpeed = -7.5
     }
     /*if(event.which === KEY.A){
       paddleLeft.xSpeed = -5
@@ -85,10 +86,10 @@ function runProgram(){
       paddleRight.xSpeed = -5
     }*/
     if(event.which === KEY.S){
-      paddleLeft.ySpeed = 5
+      paddleLeft.ySpeed = 7.5
     }
     if(event.which === KEY.DOWN){
-      paddleRight.ySpeed = 5
+      paddleRight.ySpeed = 7.5
     }
     /*if(event.which === KEY.D){
       paddleLeft.xSpeed = 5
@@ -145,22 +146,27 @@ function runProgram(){
       obj.xPos = BOARD_WIDTH/2 - obj.width/2
       //increase score2
     }
-    if (obj.yPos > BOARD_HEIGHT - obj.height){
-      obj.yPos = BOARD_HEIGHT/2 - obj.height/2
-      //increase score1
-    }
-    if (obj.yPos < 0){
-      obj.yPos = BOARD_HEIGHT/2 - obj.height/2
-      //increase score2
-    }
   }
 
   function detectCollision(){
-    if (ball.xPos < paddleLeft.xPos + paddleLeft.width){
-      console.log("test one")
+    if (ball.xPos < paddleLeft.xPos + paddleLeft.width && 
+      paddleLeft.yPos + paddleLeft.height/2 > ball.yPos && 
+      paddleLeft.yPos + paddleLeft.height/2 < ball.yPos + ball.height){
+      ball.xSpeed = -ball.xSpeed
     }
-    if (paddleLeft.yPos + paddleLeft.height/2 < ball.yPos && paddleLeft.yPos + paddleLeft.height/2 > ball.yPos + ball.height){
-      console.log("test two")
+    if (ball.xPos + ball.width > paddleRight.xPos && 
+      paddleRight.yPos + paddleRight.height/2 > ball.yPos && 
+      paddleRight.yPos + paddleRight.height/2 < ball.yPos + ball.height){
+      ball.xSpeed = -ball.xSpeed
+    }
+  }
+
+  function wallCollision(){
+    if (ball.yPos < 0){
+      ball.ySpeed = -ball.ySpeed
+    }
+    if (ball.yPos > BOARD_HEIGHT - ball.height){
+      ball.ySpeed = -ball.ySpeed
     }
   }
 
