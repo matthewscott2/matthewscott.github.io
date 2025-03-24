@@ -211,6 +211,7 @@ function startGame(){
       gameMessage = "Hard-fought victory, player one."
     }
     endGame()*/
+    $("#textBox").text(gameMessage)
   }
 
   function endGame() {
