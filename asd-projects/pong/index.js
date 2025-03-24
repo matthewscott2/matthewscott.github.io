@@ -26,6 +26,14 @@ function runProgram(){
     "RIGHT": 39,
   }
 
+  var score1 = 0
+  var score2 = 0
+  var startMessage = "To begin the game, slide both paddles to the top of the screen."
+  var gameMessage = "Good luck, have fun!"
+
+  $("#score1").text(score1)
+  $("#score2").text(score2)
+  $("#textBox").text(startMessage)
 
   function GameItem(id, xSpeed, ySpeed){
     var objInstance = {
@@ -42,7 +50,7 @@ function runProgram(){
 
   var paddleLeft = GameItem("#paddleLeft", 0, 0);
   var paddleRight = GameItem("#paddleRight", 0, 0)
-  var ball = GameItem("#ball", randomNum, randomNum)
+  var ball = GameItem("#ball", 0, 0)
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -58,6 +66,7 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
+    startGame();
     redrawGameItem(paddleLeft);
     redrawGameItem(paddleRight);
     redrawGameItem(ball);
@@ -67,6 +76,7 @@ function runProgram(){
     outOfBounds(ball);
     detectCollision();
     wallCollision();
+    winScenarios();
   }
   
   /* 
@@ -131,20 +141,37 @@ function runProgram(){
   }
 
   //check boundaries of paddles
-  //handle what happens when the ball hits the walls
   //handle what happens when the ball hits the paddles
   //handle what happens when someone wins
   //handle the points
   //handle resetting the game
 
+function startGame(){
+  if (paddleLeft.yPos <= 0 && paddleRight.yPos <= 0){
+    ball.xSpeed = randomNum
+    ball.ySpeed = randomNum
+    paddleLeft.yPos = BOARD_HEIGHT/2 - paddleLeft.height/2
+    paddleRight.yPos = BOARD_HEIGHT/2 - paddleRight.height/2
+    $("#textBox").text(gameMessage)
+  }
+}
+
   function outOfBounds(obj){
     if (obj.xPos > BOARD_WIDTH - obj.width){
       obj.xPos = BOARD_WIDTH/2 - obj.width/2
-      //increase score1
+      obj.xSpeed = randomNum
+      obj.ySpeed = randomNum
+      score2 += 1
+      $("#score2").text(score2)
+      //increase score2
     }
     if (obj.xPos < 0){
       obj.xPos = BOARD_WIDTH/2 - obj.width/2
-      //increase score2
+      obj.xSpeed = randomNum
+      obj.ySpeed = randomNum
+      score1 += 1
+      $("#score1").text(score1)
+      //increase score1
     }
   }
 
@@ -152,12 +179,12 @@ function runProgram(){
     if (ball.xPos < paddleLeft.xPos + paddleLeft.width && 
       paddleLeft.yPos + paddleLeft.height/2 > ball.yPos && 
       paddleLeft.yPos + paddleLeft.height/2 < ball.yPos + ball.height){
-      ball.xSpeed = -ball.xSpeed
+      ball.xSpeed = -ball.xSpeed + 0.5
     }
     if (ball.xPos + ball.width > paddleRight.xPos && 
       paddleRight.yPos + paddleRight.height/2 > ball.yPos && 
       paddleRight.yPos + paddleRight.height/2 < ball.yPos + ball.height){
-      ball.xSpeed = -ball.xSpeed
+      ball.xSpeed = -ball.xSpeed - 0.5
     }
   }
 
@@ -168,6 +195,22 @@ function runProgram(){
     if (ball.yPos > BOARD_HEIGHT - ball.height){
       ball.ySpeed = -ball.ySpeed
     }
+  }
+
+  function winScenarios(){
+    if(score1 === 7 && score2 === 0){
+      gameMessage = "Flawless victory, player one."
+    }
+    /*if(score1 === 7 && score2 === 1 || score2 === 2 || score2 === 3){
+      gameMessage = "Devastating defeat, player two."
+    }
+    if(score1 === 7 && score2 === 4 || score2 === 5){
+      gameMessage = "Well-earned win, player one."
+    }
+    if(score1 === 7 && score2 === 6){
+      gameMessage = "Hard-fought victory, player one."
+    }
+    endGame()*/
   }
 
   function endGame() {

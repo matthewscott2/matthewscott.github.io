@@ -46,6 +46,7 @@ body {
   position: absolute;
   left: 820px;
   top: -10px;
+  text-align: center
 }
 
 #score2 {
@@ -55,4 +56,14 @@ body {
   position: absolute;
   left: 10px;
   top: -10px;
+  text-align: center
+}
+
+#textBox {
+  width: 860px;
+  height: 80px;
+  position: absolute;
+  left: 10px;
+  top: 440px;
+  text-align: center
 }
