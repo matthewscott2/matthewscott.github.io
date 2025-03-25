@@ -12,7 +12,7 @@ function runProgram(){
   const FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   const BOARD_WIDTH = $("#board").width();
   const BOARD_HEIGHT = $("#board").height();
-  const randomNum = (Math.random() * 3 + 2) * (Math.random() > 0.5 ? -1 : 1);
+  const randomNum = (Math.random() * 3 + 3) * (Math.random() > 0.5 ? -1 : 1);
   
   // Game Item Objects
   const KEY = {
@@ -147,7 +147,7 @@ function runProgram(){
   //handle resetting the game
 
 function startGame(){
-  if (paddleLeft.yPos <= 0 && paddleRight.yPos <= 0){
+  if (paddleLeft.yPos <= 0 && paddleRight.yPos <= 0 && ball.xSpeed === 0){
     ball.xSpeed = randomNum
     ball.ySpeed = randomNum
     paddleLeft.yPos = BOARD_HEIGHT/2 - paddleLeft.height/2
@@ -200,26 +200,96 @@ function startGame(){
   function winScenarios(){
     if(score1 === 7 && score2 === 0){
       gameMessage = "Flawless victory, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
     }
-    /*if(score1 === 7 && score2 === 1 || score2 === 2 || score2 === 3){
+    if(score1 === 7 && score2 === 1) {
       gameMessage = "Devastating defeat, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
     }
-    if(score1 === 7 && score2 === 4 || score2 === 5){
+    if(score1 === 7 && score2 === 2) {
+      gameMessage = "Devastating defeat, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score1 === 7 && score2 === 3) {
+      gameMessage = "Devastating defeat, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score1 === 7 && score2 === 4){
       gameMessage = "Well-earned win, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score1 === 7 && score2 === 5){
+      gameMessage = "Well-earned win, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
     }
     if(score1 === 7 && score2 === 6){
       gameMessage = "Hard-fought victory, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
     }
-    endGame()*/
-    $("#textBox").text(gameMessage)
+    
+
+    if(score2 === 7 && score1 === 0){
+      gameMessage = "Flawless victory, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score2 === 7 && score1 === 1) {
+      gameMessage = "Devastating defeat, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score2 === 7 && score1 === 2) {
+      gameMessage = "Devastating defeat, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score2 === 7 && score1 === 3) {
+      gameMessage = "Devastating defeat, player one."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score2 === 7 && score1 === 4){
+      gameMessage = "Well-earned win, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score2 === 7 && score1 === 5){
+      gameMessage = "Well-earned win, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
+    if(score2 === 7 && score1 === 6){
+      gameMessage = "Hard-fought victory, player two."
+      $("#textBox").text(gameMessage)
+      endGame();
+    }
   }
 
   function endGame() {
+
+    $("#ball").css('opacity', 0)
+    $("#paddleLeft").css('opacity', 0)
+    $("#paddleRight").css('opacity', 0)
+    $("#endGameButton").css('opacity', 1)
+    //restartGame();
+
     // stop the interval timer
     clearInterval(interval);
 
     // turn off event handlers
     $(document).off();
+   
+  }
+
+  function restartGame(){
+    //$("#endGameButton").onClick('onClick', window.location.reload)
   }
   
 }
