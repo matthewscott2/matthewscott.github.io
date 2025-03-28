@@ -76,7 +76,9 @@ function runProgram(){
     outOfBounds(ball);
     detectCollision();
     wallCollision();
-    winScenarios();
+    paddleBoundaries();
+    winScenarios(score1, score2, "one", "two");
+    winScenarios(score2, score1, "two", "one");
   }
   
   /* 
@@ -141,9 +143,6 @@ function runProgram(){
   }
 
   //check boundaries of paddles
-  //handle what happens when the ball hits the paddles
-  //handle what happens when someone wins
-  //handle the points
   //handle resetting the game
 
 function startGame(){
@@ -197,76 +196,39 @@ function startGame(){
     }
   }
 
-  function winScenarios(){
-    if(score1 === 7 && score2 === 0){
-      gameMessage = "Flawless victory, player one."
-      $("#textBox").text(gameMessage)
-      endGame();
+  function paddleBoundaries(){
+    if (paddleLeft.yPos > BOARD_HEIGHT - paddleLeft.height){
+      paddleLeft.yPos = BOARD_HEIGHT - paddleLeft.height;
     }
-    if(score1 === 7 && score2 === 1) {
-      gameMessage = "Devastating defeat, player two."
-      $("#textBox").text(gameMessage)
-      endGame();
+    if (paddleRight.yPos > BOARD_HEIGHT - paddleRight.height){
+      paddleRight.yPos = BOARD_HEIGHT - paddleLeft.height;
     }
-    if(score1 === 7 && score2 === 2) {
-      gameMessage = "Devastating defeat, player two."
-      $("#textBox").text(gameMessage)
-      endGame();
+    if (paddleLeft.yPos < 0){
+      paddleLeft.yPos = 0;
     }
-    if(score1 === 7 && score2 === 3) {
-      gameMessage = "Devastating defeat, player two."
-      $("#textBox").text(gameMessage)
-      endGame();
+    if (paddleRight.yPos < 0){
+      paddleRight.yPos = 0;
     }
-    if(score1 === 7 && score2 === 4){
-      gameMessage = "Well-earned win, player one."
-      $("#textBox").text(gameMessage)
-      endGame();
-    }
-    if(score1 === 7 && score2 === 5){
-      gameMessage = "Well-earned win, player one."
-      $("#textBox").text(gameMessage)
-      endGame();
-    }
-    if(score1 === 7 && score2 === 6){
-      gameMessage = "Hard-fought victory, player one."
-      $("#textBox").text(gameMessage)
-      endGame();
-    }
-    
+  }
 
-    if(score2 === 7 && score1 === 0){
-      gameMessage = "Flawless victory, player two."
+  function winScenarios(winnerScore, loserScore, winner, loser){
+    if(winnerScore === 7 && loserScore === 0){
+      gameMessage = "Flawless victory, player " + winner + "."
       $("#textBox").text(gameMessage)
       endGame();
     }
-    if(score2 === 7 && score1 === 1) {
-      gameMessage = "Devastating defeat, player one."
+    if((winnerScore === 7 && loserScore === 1) || (winnerScore === 7 && loserScore === 2) || (winnerScore === 7 && loserScore === 3)) {
+      gameMessage = "Devastating defeat, player " + loser + "."
       $("#textBox").text(gameMessage)
       endGame();
     }
-    if(score2 === 7 && score1 === 2) {
-      gameMessage = "Devastating defeat, player one."
+    if((winnerScore === 7 && loserScore === 4) || (winnerScore === 7 && loserScore === 5)){
+      gameMessage = "Well-earned win, player " + winner + "."
       $("#textBox").text(gameMessage)
       endGame();
     }
-    if(score2 === 7 && score1 === 3) {
-      gameMessage = "Devastating defeat, player one."
-      $("#textBox").text(gameMessage)
-      endGame();
-    }
-    if(score2 === 7 && score1 === 4){
-      gameMessage = "Well-earned win, player two."
-      $("#textBox").text(gameMessage)
-      endGame();
-    }
-    if(score2 === 7 && score1 === 5){
-      gameMessage = "Well-earned win, player two."
-      $("#textBox").text(gameMessage)
-      endGame();
-    }
-    if(score2 === 7 && score1 === 6){
-      gameMessage = "Hard-fought victory, player two."
+    if(winnerScore === 7 && loserScore === 6){
+      gameMessage = "Hard-fought victory, player " + winner + "."
       $("#textBox").text(gameMessage)
       endGame();
     }
@@ -286,10 +248,5 @@ function startGame(){
     // turn off event handlers
     $(document).off();
    
-  }
-
-  function restartGame(){
-    //$("#endGameButton").onClick('onClick', window.location.reload)
-  }
-  
+  }  
 }

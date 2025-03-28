@@ -25,13 +25,13 @@ body {
 
 #paddleLeft {
   left: 10px;
-  top: 10px;
+  top: 195px;
   opacity: 1;
 }
 
 #paddleRight {
   left: 860px;
-  top: 10px;
+  top: 195px;
   opacity: 1;
 }
 
@@ -90,4 +90,6 @@ body {
   left: 390px;
   top: 210px;
   opacity: 0;
+  background-color: rgb(100, 0, 0);
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
