@@ -30,6 +30,7 @@ function runProgram(){
   var score2 = 0 //creates the base value for score two
   var startMessage = "To begin the game, slide both paddles to the top of the screen." //sets the message to be displayed when the game is first loaded
   var gameMessage = "Good luck, have fun!" //sets the message to be displayed while the game is being played
+  
 
   $("#score1").text(score1) //displays score one at the beginning of the game
   $("#score2").text(score2) //displays score two at the beginning of the game
@@ -78,6 +79,7 @@ function runProgram(){
     wallCollision(ball);
     paddleBoundaries(paddleLeft);
     paddleBoundaries(paddleRight);
+    changeBallColor(ball);
     winScenarios(score1, score2, "one", "two");
     winScenarios(score2, score1, "two", "one");
   } //calls all of the game's functions every frame (allows for animation)
@@ -195,6 +197,17 @@ function runProgram(){
       paddle.yPos = 0;
     } //ensures the paddles don't go out of the top of the board, and makes them stop moving
   }
+
+  function changeBallColor(ball){
+    if (ball.xSpeed > 0){
+      $(ball.id).css('background-color', "darkred") 
+      $(ball.id).css('border-color', "red") 
+    }
+    if (ball.xSpeed < 0){
+      $(ball.id).css('background-color', "darkblue") 
+      $(ball.id).css('border-color', "blue") 
+    }
+  }//assigns a new ball color to the ball depending on the direction it is going
 
   function winScenarios(winnerScore, loserScore, winner, loser){
     if(winnerScore === 7 && loserScore === 0){
